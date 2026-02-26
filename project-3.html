@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINN Airfoil — Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+/* === SHARED === */
+/* ============================================================
+   SHARED STYLES — portfolio
+   ============================================================ */
+:root {
+  --bg: #04060f;
+  --bg2: #060a18;
+  --panel: rgba(8, 14, 32, 0.85);
+  --amber: #ff8c00;
+  --amber-dim: rgba(255, 140, 0, 0.15);
+  --amber-glow: rgba(255, 140, 0, 0.4);
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0, 212, 255, 0.08);
+  --text: #c8d4e8;
+  --text-dim: #4a5a7a;
+  --white: #eef2ff;
+  --grid: rgba(255, 140, 0, 0.04);
+  --border: rgba(255, 140, 0, 0.12);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor { position: fixed; width: 8px; height: 8px; background: var(--amber); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; mix-blend-mode: screen; }
+.cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid var(--amber); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.15s, width 0.2s, height 0.2s, opacity 0.2s; opacity: 0.5; transform: translate(-12px, -12px); }
+
+/* Grid overlay */
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+/* Grain */
+body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; opacity: 0.4; }
+
+canvas#flow { position: fixed; inset: 0; z-index: 0; opacity: 0.35; }
+
+section { position: relative; z-index: 10; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; border-bottom: 1px solid var(--border); background: rgba(4, 6, 15, 0.8); backdrop-filter: blur(12px); }
+.nav-logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.85rem; color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; }
+.nav-logo span { color: var(--text-dim); font-weight: 400; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--amber); transform: scaleX(0); transition: transform 0.2s; }
+.nav-links a:hover { color: var(--amber); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--amber); }
+.nav-links a.active::after { transform: scaleX(1); }
+.nav-status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+.status-dot { width: 6px; height: 6px; background: #00ff88; border-radius: 50%; animation: pulse 2s infinite; }
+
+@keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.4); } 50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(0,255,136,0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slide { 0% { left: -100%; } 100% { left: 100%; } }
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* SECTION LABELS + TITLES */
+.section-label { font-size: 0.6rem; letter-spacing: 0.35em; color: var(--amber); text-transform: uppercase; margin-bottom: 1.5rem; }
+.section-label::before { content: '[ '; }
+.section-label::after { content: ' ]'; }
+.section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 2rem; }
+
+/* TAGS */
+.tag { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border: 1px solid var(--border); color: var(--text-dim); transition: border-color 0.2s, color 0.2s; }
+
+/* DIVIDER */
+.section-divider { height: 1px; background: var(--border); margin: 0 3rem; position: relative; z-index: 10; }
+
+/* BUTTONS */
+.btn-primary { background: var(--amber); color: var(--bg); padding: 0.75rem 2rem; font-family: 'Orbitron', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border: none; cursor: none; transition: background 0.2s, box-shadow 0.2s, transform 0.1s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); display: inline-block; }
+.btn-primary:hover { background: #ffaa33; box-shadow: 0 0 30px var(--amber-glow); transform: translateY(-2px); }
+.btn-secondary { background: transparent; color: var(--amber); padding: 0.75rem 2rem; font-family: 'Orbitron', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--amber); cursor: none; transition: background 0.2s, box-shadow 0.2s; display: inline-block; }
+.btn-secondary:hover { background: var(--amber-dim); box-shadow: 0 0 20px var(--amber-glow); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* FOOTER */
+footer { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; border-top: 1px solid var(--border); background: rgba(4, 6, 15, 0.6); }
+.footer-txt { font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; }
+.footer-coords { font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; }
+
+/* CONTACT */
+#contact { padding: 8rem 3rem; text-align: center; position: relative; }
+.contact-inner { max-width: 600px; margin: 0 auto; }
+.contact-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+.contact-title .highlight { color: var(--amber); }
+.contact-sub { font-family: 'Crimson Pro', serif; font-size: 1.1rem; line-height: 1.8; color: var(--text-dim); margin-bottom: 3rem; }
+.contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.contact-link { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.75rem 1.5rem; border: 1px solid var(--border); transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.contact-link:hover { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+
+/* PAGE HEADER (for inner pages) */
+.page-header { padding: 10rem 3rem 5rem; max-width: 1200px; margin: 0 auto; }
+.page-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; margin-bottom: 3rem; transition: color 0.2s; }
+.page-back:hover { color: var(--amber); }
+.page-back::before { content: '←'; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+  .nav-status { display: none; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .contact-links { flex-direction: column; align-items: center; }
+  #contact { padding: 5rem 1.5rem; }
+  .page-header { padding: 8rem 1.5rem 3rem; }
+}
+
+</style>
+<style>
+  .detail-page{padding:10rem 3rem 6rem;max-width:860px;margin:0 auto}
+  .detail-hero{display:grid;grid-template-columns:1fr auto;align-items:start;gap:3rem;margin-bottom:5rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+  .detail-kicker{font-size:.58rem;letter-spacing:.3em;color:var(--amber);text-transform:uppercase;margin-bottom:1rem}
+  .detail-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:.6rem}
+  .detail-company{font-size:.7rem;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase;opacity:.7;margin-bottom:2rem}
+  .detail-meta-grid{display:flex;flex-direction:column;gap:1rem;min-width:200px}
+  .detail-meta-item{border-left:2px solid var(--border);padding-left:1rem}
+  .detail-meta-label{font-size:.5rem;letter-spacing:.25em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.3rem}
+  .detail-meta-value{font-size:.7rem;color:var(--text);letter-spacing:.05em}
+  .detail-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+  .detail-section{margin-bottom:3.5rem}
+  .detail-section-title{font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;color:var(--amber);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  .detail-text{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.9;color:var(--text);margin-bottom:1.2rem}
+  .detail-bullets{list-style:none}
+  .detail-bullets li{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.75;color:var(--text);padding-left:1.8rem;margin-bottom:.8rem;position:relative}
+  .detail-bullets li::before{content:'▸';position:absolute;left:0;color:var(--amber);opacity:.8}
+  .detail-metrics{display:flex;gap:2rem;flex-wrap:wrap;margin:2rem 0}
+  .detail-metric-box{flex:1;min-width:120px;border:1px solid var(--border);padding:1.5rem;background:var(--bg2);text-align:center}
+  .detail-metric-val{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:var(--amber);margin-bottom:.4rem}
+  .detail-metric-label{font-size:.55rem;letter-spacing:.15em;color:var(--text-dim);text-transform:uppercase}
+  .detail-nav{display:flex;justify-content:space-between;padding-top:3rem;border-top:1px solid var(--border);margin-top:4rem}
+  .detail-nav a{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .2s}
+  .detail-nav a:hover{color:var(--amber)}
+  .detail-nav .prev::before{content:'← '}
+  .detail-nav .next::after{content:' →'}
+  .img-placeholder{width:100%;height:280px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;margin:2rem 0}
+  @media(max-width:768px){.detail-page{padding:8rem 1.5rem 4rem}.detail-hero{grid-template-columns:1fr}.detail-metrics{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="flow"></canvas>
+<nav>
+  <a class="nav-logo" href="index.html">YourName<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+  </ul>
+  <div class="nav-status"><span class="status-dot"></span>Open for Full time and PhD roles</div>
+</nav>
+<div class="detail-page">
+  <a href="projects.html" class="page-back">All Projects</a>
+  <div class="detail-hero reveal">
+    <div>
+      <p class="detail-kicker">03 · Physics-AI · Aerospace</p>
+      <h1 class="detail-title">PINN Airfoil Surrogate — Neural Navier-Stokes</h1>
+      <div class="detail-company">Personal Project · 2024</div>
+      <div class="detail-tags">
+        <span class="tag">C++17</span><span class="tag">CUDA 12</span><span class="tag">CMake</span><span class="tag">Paraview</span><span class="tag">FDM</span>
+      </div>
+    </div>
+    <div class="detail-meta-grid">
+      <div class="detail-meta-item"><div class="detail-meta-label">Type</div><div class="detail-meta-value">Physics-AI</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Language</div><div class="detail-meta-value">C++17 + CUDA</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Status</div><div class="detail-meta-value">Complete</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">GitHub</div><div class="detail-meta-value"><a href="https://github.com/yourusername/pinn-airfoil" style="color:var(--amber);text-decoration:none" target="_blank">View Repo →</a></div></div>
+    </div>
+  </div>
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Overview</div>
+    <p class="detail-text">Replace this with 2–3 sentences describing the project's motivation and what it does. What problem does it solve? Who would use it? What makes it technically interesting?</p>
+    <div class="img-placeholder">[ Add simulation screenshot or flow visualisation here ]</div>
+  </div>
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Results</div>
+    <div class="detail-metrics">
+      <div class="detail-metric-box"><div class="detail-metric-val">47×</div><div class="detail-metric-label">GPU speedup</div></div>
+      <div class="detail-metric-box"><div class="detail-metric-val">Re 1000</div><div class="detail-metric-label">Reynolds number</div></div>
+      <div class="detail-metric-box"><div class="detail-metric-val">2M</div><div class="detail-metric-label">Grid cells</div></div>
+    </div>
+  </div>
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Technical Details</div>
+    <ul class="detail-bullets">
+      <li>Implemented the pressure-projection method for incompressible Navier-Stokes on a 2D staggered grid.</li>
+      <li>Ported the pressure-Poisson solver to CUDA using shared memory tiling, achieving 47× speedup over serial CPU.</li>
+      <li>Validated results against the Ghia et al. (1982) lid-driven cavity benchmark at Re=100, 400, 1000.</li>
+      <li>Replace with your actual technical details — numerical scheme, discretisation, boundary conditions, validation.</li>
+    </ul>
+  </div>
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Challenges & Learnings</div>
+    <p class="detail-text">Describe the hardest technical challenge you faced and how you solved it. This is the section that distinguishes your write-up from a README.</p>
+  </div>
+  <div class="detail-nav reveal">
+    <a href="project-2.html" class="prev">MiniTorch</a>
+    <a href="project-4.html" class="next">AlgoForge</a>
+  </div>
+</div>
+<footer><span class="footer-txt">© 2026 Your Name</span><span class="footer-coords">SYS.STATUS: OPEN_FOR_HIRE // v2.0.0</span></footer>
+<script>
+const cursor=document.getElementById('cursor');const ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px';});
+function animateRing(){rx+=(mx-rx-16)*.15;ry+=(my-ry-16)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateRing);}animateRing();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='0.8';cursor.style.transform='scale(0.5)';});el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.5';cursor.style.transform='scale(1)';});});
+const canvas=document.getElementById('flow');const ctx=canvas.getContext('2d');function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}resize();window.addEventListener('resize',resize);
+const particles=[];function velocity(x,y){const nx=(x/canvas.width)*4-2;const ny=(y/canvas.height)*3-1.5;const r2=nx*nx+ny*ny;const eps=0.3;let vx=1-(ny*ny-nx*nx)/Math.pow(r2+eps,2);let vy=-2*nx*ny/Math.pow(r2+eps,2);vx+=Math.sin(ny*2)*.1;const mag=Math.sqrt(vx*vx+vy*vy);return{vx:vx/(mag+.1),vy:vy/(mag+.1)};}
+for(let i=0;i<180;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,age:Math.random()*200,maxAge:100+Math.random()*150,speed:.5+Math.random()*1.2,size:.5+Math.random()*1.5});
+function resetParticle(p){p.x=Math.random()*canvas.width;p.y=Math.random()*canvas.height;p.age=0;p.maxAge=100+Math.random()*150;}
+function drawFlow(){ctx.fillStyle='rgba(4,6,15,0.06)';ctx.fillRect(0,0,canvas.width,canvas.height);for(const p of particles){const{vx,vy}=velocity(p.x,p.y);const lr=p.age/p.maxAge;const alpha=lr<.1?lr*10:lr>.8?(1-lr)*5:1;const t=p.x/canvas.width;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(${Math.round(255*(1-t*.5))},${Math.round(140+t*72)},${Math.round(t*255)},${alpha*.6})`;ctx.fill();p.x+=vx*p.speed;p.y+=vy*p.speed;p.age++;if(p.age>p.maxAge||p.x<-10||p.x>canvas.width+10||p.y<-10||p.y>canvas.height+10)resetParticle(p);}requestAnimationFrame(drawFlow);}drawFlow();
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
