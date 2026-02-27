@@ -234,6 +234,79 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
     .preview-arrow { display: none; }
     #about { padding: 5rem 1.5rem; }
   }
+
+  /* EDUCATION entries */
+  .edu-entry { margin-bottom: 2.2rem; border-left: 2px solid var(--border); padding-left: 1.5rem; padding-bottom: 0.5rem; transition: border-color 0.3s; }
+  .edu-entry:hover { border-color: var(--amber); }
+  .edu-period { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--amber); text-transform: uppercase; margin-bottom: 0.5rem; opacity: 0.8; }
+  .edu-uni { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+  .edu-degree { font-size: 0.72rem; color: var(--text); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .edu-major { font-size: 0.65rem; color: var(--cyan); opacity: 0.75; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .edu-location { font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.7rem; }
+  .edu-courses { font-size: 0.62rem; color: var(--text-dim); line-height: 1.7; letter-spacing: 0.03em; }
+  .edu-courses-label { color: var(--amber); opacity: 0.8; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+
+  /* COMPETENCIES section */
+  .competencies-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .comp-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 1rem; }
+
+  /* SKILLS SECTION */
+  .skills-section { padding: 8rem 3rem; max-width: 1200px; margin: 0 auto; }
+
+  .skills-rows { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
+
+  .skill-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: start;
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-row:hover { background: var(--bg2); }
+
+  .skill-row-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding-top: 0.3rem;
+  }
+
+  .skill-row-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+
+  /* Skill tag chips */
+  .skill-tag-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+  .skill-tag {
+    font-size: 0.65rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .skill-tag:hover { border-color: var(--amber); color: var(--white); }
+  .skill-sep { color: var(--amber); opacity: 0.4; font-size: 0.75rem; line-height: 1; }
+  .skill-level-badge {
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    border: 1px solid rgba(255,140,0,0.3);
+    padding: 0.1rem 0.35rem;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 768px) {
+    .skill-row { grid-template-columns: 1fr; gap: 1rem; }
+    .skills-section { padding: 5rem 1.5rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -315,6 +388,8 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
 
 <!-- ABOUT -->
 <section id="about">
+
+  <!-- Two-column: left = bio text, right = education -->
   <div>
     <p class="section-label reveal">Background</p>
     <h2 class="section-title reveal">Engineering at<br>the edge.</h2>
@@ -332,38 +407,112 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
   </div>
 
   <div class="reveal">
-    <div class="skills-grid">
-      <div class="skill-item">
-        <div class="skill-name">C++ 20</div>
-        <div class="skill-level">Templates · RAII · Concurrency</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-name">CUDA C++</div>
-        <div class="skill-level">Kernels · Memory · Streams</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-name">DSA & Algorithms</div>
-        <div class="skill-level">20 core patterns · Graph · DP</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-name">PyTorch / libtorch</div>
-        <div class="skill-level">Training · PINN · Autograd</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:76%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-name">Numerical Methods</div>
-        <div class="skill-level">FDM · FEM · Linear Solvers</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-name">Systems Design</div>
-        <div class="skill-level">HPC · Profiling · Cache</div>
-        <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+    <p class="section-label" style="margin-bottom:2rem">Education</p>
+
+    <div class="edu-entry">
+      <div class="edu-period">2022 — 2024</div>
+      <div class="edu-uni">University Name</div>
+      <div class="edu-degree">MSc Aerospace Engineering</div>
+      <div class="edu-major">Major: Advanced Aerodynamics and Propulsion</div>
+      <div class="edu-location">⌖ City, Country</div>
+      <div class="edu-courses">
+        <span class="edu-courses-label">Relevant Courses:</span>
+        Course 1 | Course 2 | Course 3 | Course 4 | Course 5
       </div>
     </div>
+
+    <div class="edu-entry">
+      <div class="edu-period">2018 — 2022</div>
+      <div class="edu-uni">University Name</div>
+      <div class="edu-degree">BEng Aerospace Engineering</div>
+      <div class="edu-major">Major: Add your major here</div>
+      <div class="edu-location">⌖ City, Country</div>
+      <div class="edu-courses">
+        <span class="edu-courses-label">Relevant Courses:</span>
+        Course 1 | Course 2 | Course 3 | Course 4 | Course 5
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- COMPETENCIES -->
+<section class="competencies-section">
+  <p class="section-label reveal">Core Areas</p>
+  <h2 class="section-title reveal">Competencies</h2>
+  <div class="comp-tags reveal">
+    <span class="skill-tag">Surrogate Modeling</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Computational Fluid Dynamics (CFD)</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Flight Physics</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Aerodynamics</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Aircraft Performance Modeling</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Deep Learning</span><span class="skill-sep">|</span>
+    <span class="skill-tag">Neural Networks</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <p class="section-label reveal">Capabilities</p>
+  <h2 class="section-title reveal">Skills</h2>
+
+  <div class="skills-rows reveal">
+
+    <div class="skill-row">
+      <div class="skill-row-label">Programming</div>
+      <div class="skill-row-tags">
+        <span class="skill-tag">Python</span><span class="skill-sep">|</span>
+        <span class="skill-tag">PySpark</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Pandas</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Scipy</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Numpy</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Fortran</span><span class="skill-sep">|</span>
+        <span class="skill-tag">C / C++</span><span class="skill-sep">|</span>
+        <span class="skill-tag">LINUX</span><span class="skill-sep">|</span>
+        <span class="skill-tag">GIT</span><span class="skill-sep">|</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-row-label">Tools</div>
+      <div class="skill-row-tags">
+        <span class="skill-tag">Star-CCM+</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Ansys CFX</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Ansys FLUENT</span><span class="skill-sep">|</span>
+        <span class="skill-tag">CATIA V5</span><span class="skill-sep">|</span>
+        <span class="skill-tag">ICEM-CFD</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Turbogrid</span><span class="skill-sep">|</span>
+        <span class="skill-tag">OpenFOAM</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Ansys Meshing</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-row-label">Soft Skills</div>
+      <div class="skill-row-tags">
+        <span class="skill-tag">Problem Solving</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Team Player</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Communication</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Collaboration</span><span class="skill-sep">|</span>
+        <span class="skill-tag">Adaptive</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-row-label">Languages</div>
+      <div class="skill-row-tags">
+        <span class="skill-tag">French <span class="skill-level-badge">B1</span></span><span class="skill-sep">|</span>
+        <span class="skill-tag">English <span class="skill-level-badge">C1</span></span><span class="skill-sep">|</span>
+        <span class="skill-tag">Telugu <span class="skill-level-badge">Native</span></span>
+      </div>
+    </div>
+
   </div>
 </section>
 
