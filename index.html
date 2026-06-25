@@ -869,35 +869,41 @@
     .preview-list {
       display: flex;
       flex-direction: column;
-      gap: 1.5px;
-      background: var(--border);
+      gap: 1.5rem;
     }
 
     .preview-card {
-      background: var(--bg2);
+      background: rgba(8, 14, 32, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       padding: 2.5rem 3rem;
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 3rem;
       text-decoration: none;
       cursor: none;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .preview-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, var(--amber-dim) 0%, transparent 50%);
+      background: linear-gradient(135deg, var(--amber-dim) 0%, transparent 60%);
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.4s;
     }
 
     .preview-card:hover {
-      background: #070b1a;
+      background: rgba(12, 18, 40, 0.6);
+      border-color: rgba(255, 140, 0, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(255, 140, 0, 0.1);
     }
 
     .preview-card:hover::before {
@@ -908,17 +914,20 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 2.5rem;
       font-weight: 900;
-      color: rgba(255, 140, 0, 0.12);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 140, 0, 0.2);
       line-height: 1;
       min-width: 4rem;
       text-align: center;
-      transition: color 0.3s;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
       z-index: 1;
     }
 
     .preview-card:hover .preview-num {
-      color: rgba(255, 140, 0, 0.3);
+      color: rgba(255, 140, 0, 0.1);
+      -webkit-text-stroke: 1px rgba(255, 140, 0, 0.6);
+      transform: scale(1.1);
     }
 
     .preview-body {
@@ -936,11 +945,16 @@
 
     .preview-title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--white);
       margin-bottom: 0.6rem;
       line-height: 1.3;
+      transition: color 0.3s;
+    }
+
+    .preview-card:hover .preview-title {
+      color: var(--amber);
     }
 
     .preview-summary {
@@ -960,9 +974,9 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--amber);
-      opacity: 0;
-      transform: translateX(-8px);
-      transition: opacity 0.3s, transform 0.3s;
+      opacity: 0.5;
+      transform: translateX(-16px);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
       z-index: 1;
       white-space: nowrap;
@@ -1439,10 +1453,12 @@
       <a href="experience-1.html" class="preview-card">
         <div class="preview-num">01</div>
         <div class="preview-body">
-          <p class="preview-type">Aug 2025 — Present · e.NOVA Aeros0ace</p>
-          <h3 Space Mission Software developer and CFD engineer</h3>
-          <p class="preview-summary">GPU-accelerated simulation work at the intersection of aerospace and ML. Reduced
-            compute time by 30% through CUDA kernel optimisation.</p>
+          <p class="preview-type">
+            Aug 2025 — Present<br>
+            <span style="font-size: 0.75rem; display: inline-block; margin-top: 0.3rem;">e.NOVA Aerospace</span>
+          </p>
+          <h3 class="preview-title">Space Mission Software developer and CFD engineer</h3>
+          <p class="preview-summary">Developed a Python orbital mechanics toolkit with robust unit testing for sub-second satellite propagation. Deployed statistical modeling for coverage analysis and integrated data-driven methods to enhance simulation workflows.</p>
         </div>
         <div class="preview-arrow">Learn more</div>
       </a>
@@ -1450,21 +1466,38 @@
       <a href="experience-2.html" class="preview-card">
         <div class="preview-num">02</div>
         <div class="preview-body">
-          <p class="preview-type">Apr 2024 — oct 2024 · Company Name</p>
-          <h3 Research Intern</h3>
-          <p class="preview-summary">Built internal tooling and contributed to a production C++ codebase. Worked closely
-            with senior engineers on system design and performance profiling.</p>
+          <p class="preview-type">
+            Apr 2024 — Oct 2024<br>
+            <span style="font-size: 0.75rem; display: inline-block; margin-top: 0.3rem;">Capgemini Engineering</span>
+          </p>
+          <h3 class="preview-title">Research Intern in CFD of Two-Phase Flows</h3>
+          <p class="preview-summary">Simulated multiphase flow dispersion and characterized near-wall heat transfer using Ansys FLUENT in an HPC environment. Conducted high-fidelity RANS simulations and evaluated advanced turbulence models to investigate complex aerodynamic interactions.</p>
         </div>
         <div class="preview-arrow">Learn more</div>
       </a>
 
-      <a href="experience.html#education" class="preview-card">
+      <a href="experience-3.html" class="preview-card">
         <div class="preview-num">03</div>
         <div class="preview-body">
-          <p class="preview-type">2020 — 2024 · University Name</p>
-          <h3 class="preview-title">B.Eng. Aerospace / Systems Engineering</h3>
-          <p class="preview-summary">Thesis on GPU-accelerated CFD solvers. Graduated with honours. Relevant coursework
-            in numerical methods, fluid dynamics, and HPC.</p>
+          <p class="preview-type">
+            Jan 2023 — Mar 2024<br>
+            <span style="font-size: 0.75rem; display: inline-block; margin-top: 0.3rem;">ISAE SUPAERO</span>
+          </p>
+          <h3 class="preview-title">Research Assistant | Panel Method for Conceptual Design of Aero-Propulsive Architectures</h3>
+          <p class="preview-summary">Developed a Python simulation tool implementing panel methods and 0D thermodynamic models to analyze 2D aero-propulsive architectures. Accurately modeled laminar-turbulent transitions, achieving 95% CFD correlation while reducing computational turnaround by 85%.</p>
+        </div>
+        <div class="preview-arrow">Learn more</div>
+      </a>
+
+      <a href="experience-4.html" class="preview-card">
+        <div class="preview-num">04</div>
+        <div class="preview-body">
+          <p class="preview-type">
+            Apr 2021 — Jun 2022<br>
+            <span style="font-size: 0.75rem; display: inline-block; margin-top: 0.3rem;">Tata Consultancy Services</span>
+          </p>
+          <h3 class="preview-title">Assistant Systems Engineer (Jr. Data Scientist)</h3>
+          <p class="preview-summary">Designed scalable Python and C++ data pipelines and deployed deep learning forecasting tools, achieving 98% model accuracy. Managed collaborative workflows and built visualizations to translate complex data trends into actionable insights.</p>
         </div>
         <div class="preview-arrow">Learn more</div>
       </a>

@@ -192,34 +192,28 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
 
   <div class="detail-hero reveal">
     <div>
-      <p class="detail-kicker">02 · Software · Jun 2023 — Dec 2023</p>
-      <h1 class="detail-title">Software Engineering Intern</h1>
-      <div class="detail-company">Company Name</div>
+      <p class="detail-kicker">02 · CFD Simulation</p>
+      <h1 class="detail-title">Two-Phase Jet Impingement Simulation</h1>
+      <div class="detail-company">Research Project</div>
       <div class="detail-tags">
-        <span class="tag">C++17</span>
-        <span class="tag">GTest</span>
-        <span class="tag">Linux</span>
-        <span class="tag">CMake</span>
-        <span class="tag">Git</span>
-        <span class="tag">Valgrind</span>
+        <span class="tag">Python</span>
+        <span class="tag">Ansys Fluent</span>
+        <span class="tag">Ansys Meshing</span>
+        <span class="tag">CFD</span>
       </div>
     </div>
     <div class="detail-meta-grid">
       <div class="detail-meta-item">
-        <div class="detail-meta-label">Duration</div>
-        <div class="detail-meta-value">Jun 2023 — Dec 2023</div>
+        <div class="detail-meta-label">Domain</div>
+        <div class="detail-meta-value">Fluid Dynamics & Heat Transfer</div>
       </div>
       <div class="detail-meta-item">
-        <div class="detail-meta-label">Location</div>
-        <div class="detail-meta-value">City, Country</div>
+        <div class="detail-meta-label">Focus</div>
+        <div class="detail-meta-value">Multiphase Flow, Jet Impingement</div>
       </div>
       <div class="detail-meta-item">
-        <div class="detail-meta-label">Type</div>
-        <div class="detail-meta-value">Internship</div>
-      </div>
-      <div class="detail-meta-item">
-        <div class="detail-meta-label">Codebase</div>
-        <div class="detail-meta-value">Production C++</div>
+        <div class="detail-meta-label">Tools</div>
+        <div class="detail-meta-value">Ansys, Python</div>
       </div>
     </div>
   </div>
@@ -227,51 +221,133 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
   <div class="detail-section reveal">
     <div class="detail-section-title">// Overview</div>
     <p class="detail-text">
-      Describe this role in 2–3 sentences. What was the company, the product, the team structure? What problem were you helping to solve?
+      This study investigates the heat transfer characteristics of two-phase jet impingement to enhance cooling efficiency, serving as a precursor to modeling liquid hydrogen impingement. Numerical simulations were conducted at a Reynolds number of 23,000 and an H/D ratio of 2, comparing single-phase and two-phase mist-laden jets.
+    </p>
+    <p class="detail-text">
+      While simulations agreed with experimental benchmarks in the stagnation region, significant divergence occurred in the wall jet region, highlighting limitations in current two-phase turbulence models. The anticipated 80% heat transfer enhancement with mist was not consistently observed, likely due to inaccuracies in converting mass loading fraction to volume fraction. Consequently, the transition to simulating liquid hydrogen jets requires more advanced turbulence modeling and detailed experimental validation.
+    </p>
+  </div>
+
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// The Environmental Impact of Conventional Jet Fuels</div>
+    <p class="detail-text">
+      Aviation accounts for ~2.5% of global CO2 emissions, with high-altitude releases of NOx and particulate matter further amplifying its climate impact. To meet the Paris Agreement goals and achieve net-zero carbon emissions by 2050 (e.g., "Waypoint 2050" strategy), the industry must transition away from fossil-based fuels like kerosene towards sustainable, cleaner alternatives.
+    </p>
+  </div>
+
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Hydrogen as a Clean Fuel Alternative: Addressing Safety Concerns During Leaks</div>
+    <p class="detail-text">
+      Hydrogen offers zero direct carbon emissions and a high gravimetric energy density (142 MJ/kg), making it a promising aviation fuel. However, its low volumetric density requires advanced cryogenic or high-pressure storage. Crucially, hydrogen's high diffusivity, wide flammability range (4% to 75% in air), and low ignition energy introduce significant safety risks, particularly concerning leaks in confined spaces.
     </p>
     <div class="detail-highlight">
-      "Key impact statement here — e.g. 'Reduced pipeline runtime from 40s to 11s, unblocking the downstream analysis team who had been waiting on nightly results.'"
+      The safe integration of hydrogen into aircraft operations necessitates robust simulations of leak events. Understanding leak dispersion, ignition timing, and environmental interactions is essential for designing effective containment and safety protocols.
     </div>
+    <p class="detail-text">
+      This study contributes to hydrogen safety research by investigating the wall heat transfer processes of two-phase impinging jets, which heavily influence hydrogen leak dynamics. Characterizing this heat transfer behavior is vital for developing effective cooling and containment systems to mitigate risks during flight operations.
+    </p>
   </div>
 
   <div class="detail-section reveal">
-    <div class="detail-section-title">// Impact</div>
-    <div class="detail-metrics">
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">73%</div>
-        <div class="detail-metric-label">Pipeline speedup</div>
-      </div>
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">94%</div>
-        <div class="detail-metric-label">Test coverage</div>
-      </div>
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">20+</div>
-        <div class="detail-metric-label">Engineers using the tools</div>
-      </div>
-    </div>
+    <div class="detail-section-title">// Jet Impingement Dynamics</div>
+    <p class="detail-text">
+      Jet impingement drives critical heat transfer and fluid flow applications in aerospace. While single-phase air jets provide a baseline for convective cooling, two-phase mist jets (liquid droplets in vapor) enhance heat transfer significantly through phase change and evaporation upon impact, making them ideal for high-heat-flux scenarios.
+    </p>
+    <p class="detail-text">
+      Cryogenic fluid impingement, such as liquid nitrogen (often used as a safe analog for liquid hydrogen), introduces extreme temperature gradients, rapid boiling, and complex phenomena like the Leidenfrost effect. Analyzing liquid hydrogen jets involves these complex thermal transitions combined with high volatility, making understanding dispersion and cooling effects critical for developing aerospace safety protocols.
+    </p>
   </div>
 
   <div class="detail-section reveal">
-    <div class="detail-section-title">// What I Did</div>
+    <div class="detail-section-title">// Numerical Setup</div>
+    <p class="detail-text">
+      The commercial code ANSYS 2023 R1 is used in the present study to solve the discretized equations. The Domain is axisymmetric along the x axis. The diameter of the nozzle is 20 mm but since only half the domain is being simulated we take only 10 mm. The distance between nozzle and the impact wall is 40 mm (H/D = 4). The length of the wall is 150 mm.
+    </p>
     <ul class="detail-bullets">
-      <li>Contributed to a production C++ codebase serving internal simulation tooling used by 20+ engineers.</li>
-      <li>Redesigned a data pipeline stage that processed telemetry data, cutting runtime from 40s to 11s by restructuring loop access patterns for better cache locality.</li>
-      <li>Wrote unit and integration tests using Google Test; achieved 94% coverage on assigned modules with zero regressions introduced.</li>
-      <li>Participated in weekly design reviews and proposed a refactor that was adopted in the next sprint cycle.</li>
-      <li>Used Valgrind and AddressSanitizer to identify and fix 3 memory leaks in legacy code paths.</li>
-      <li>Add more bullet points here — describe actual tasks, tools, and measurable outcomes.</li>
+      <li><strong>Inlet:</strong> Velocity-Inlet (Velocity profile from Pakhomov et al., Inlet Temperature: 293.15 K, Turbulence Intensity: 5%)</li>
+      <li><strong>Center line:</strong> Axisymmetric (No flow of parameters across the boundary)</li>
+      <li><strong>Wall:</strong> No slip wall, Temperature = 374.15 K</li>
+      <li><strong>Side_wall:</strong> No slip wall, adiabatic</li>
+      <li><strong>Outlet 1 & 2:</strong> Pressure Outlet (Gauge Pressure = 0)</li>
     </ul>
+    
+    <div class="detail-section-title" style="margin-top: 2rem;">// Mesh Configuration</div>
+    <p class="detail-text">
+      The mesh type chosen is unstructured mesh. The computational domain is meshed using triangular cells. The domain is divided in two zones: Jet Zone and an outer Zone. The Jet zone is refined to smaller element sizes to effectively resolve the jet and the impingement in the stagnation zone. The wall is meshed using inflation layers to resolve the heat transfer along the wall. The rest of the domain in the outer zone is meshed coarser. Along the wall a y+ &lt; 1 is considered to model the heat transfer effectively.
+    </p>
+
+    <div class="detail-section-title" style="margin-top: 2rem;">// Material Properties (Single Phase)</div>
+    <ul class="detail-bullets">
+      <li><strong>Density:</strong> Ideal gas</li>
+      <li><strong>Viscosity:</strong> Constant</li>
+      <li><strong>Specific Heat (Cp):</strong> Piecewise linear with temperature</li>
+      <li><strong>Thermal Conductivity:</strong> Piecewise linear with temperature</li>
+    </ul>
+
+    <div class="detail-section-title" style="margin-top: 2rem;">// Turbulence Model</div>
+    <p class="detail-text">
+      The flow is 2D axi-symmetric and gravity is considered in the direction of the jet. The turbulence model selected to model the flow is k-ω SST because of its applicability to jet impingement flows. Production Limiter and Production Kato-Launder are used. Viscous Heating and Low-Re Corrections are not used. The model constants are chosen as the default values in Fluent.
+    </p>
+
+    <div class="detail-section-title" style="margin-top: 2rem;">// Species & Methods</div>
+    <p class="detail-text">
+      A species transport model is used to model the gaseous phase. A mixture of Air and Water Vapour is considered with the "Diffusion Energy Source" option enabled.
+    </p>
+    <p class="detail-text">
+      For single-phase jet impingement studies, second-order methods are used for Spatial Discretization with a coupled pressure solver and Pseudo Transient method enabled. For the two-phase jet impingement with mist as the dispersed phase, the Laminar model and 1st order methods are initially used. Once stability is achieved, the viscous model is switched to k-ω SST and 1st order methods are used for spatial discretization.
+    </p>
+    
+    <div class="detail-highlight" style="margin-top: 2rem;">
+      <strong style="color: var(--amber);">MULTIPHASE SETTINGS: MIXTURE MODEL</strong>
+      <ul style="margin-top: 0.5rem; padding-left: 1.5rem; list-style-type: square;">
+        <li><strong>Eulerian Phases:</strong> 2 (Implicit Volume Fraction)</li>
+        <li><strong>Interface Modeling:</strong> Dispersed</li>
+        <li><strong>Implicit Body Force Formulation:</strong> Yes</li>
+        <li><strong>Primary Phase:</strong> Air and Water vapor Mixture</li>
+        <li><strong>Secondary Phase:</strong> Water Droplets</li>
+        <li><strong>Surface Tension:</strong> Constant at 0.072 N/m</li>
+        <li><strong>Heat & Mass Reactions:</strong> Mass Transfer from water droplets to air/water vapour mixture using Evaporation-condensation model (LEE model).</li>
+      </ul>
+    </div>
   </div>
 
   <div class="detail-section reveal">
-    <div class="detail-section-title">// What I Learned</div>
+    <div class="detail-section-title">// Single Phase Jet Impingement Results</div>
     <p class="detail-text">
-      Replace this with 2–3 sentences on your key learnings. What did this internship teach you that you couldn't have learned from a personal project?
+      Single-phase air jet simulations were validated against experimental data and existing numerical results. Velocity profiles show that the simulated jet decelerates less than anticipated in the axial direction, and radial velocities indicate higher-than-expected momentum. Adjusting turbulence intensity (TI) revealed that higher TI (e.g., 20%) increases fluid mixing and viscous dissipation, leading to a more pronounced velocity deficit.
     </p>
     <p class="detail-text">
-      For example: working on a legacy codebase taught me to read code I didn't write with empathy — and to always ask "why does this exist?" before refactoring it away.
+      The Nusselt number profiles closely match experimental data in the stagnation point (critical region) but under-predict heat transfer in the wall jet region. Among various turbulence models tested, the Generalized K-ω (GEKO) without Production Limiter (PL) offered the best heat transfer predictions in the critical zone. Interestingly, using a Reynolds Stress Model (RSM) yielded predictions nearly twice as high, emphasizing the need for an-isotropic modifications in standard RSM models for impinging jet flows.
     </p>
+    <div style="margin: 2rem 0;">
+      <p style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Base Nusselt Number Profile</p>
+      <img src="figures/two_phase/NU_basz_SP.png" alt="Nusselt number compared with Experimental Results" style="width: 100%; max-width: 600px; border: 1px solid var(--border);">
+    </div>
+    <div style="margin: 2rem 0;">
+      <p style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Effect of Turbulence Models</p>
+      <img src="figures/two_phase/Nu_Turb_SP.png" alt="Nusselt number for different turbulence models" style="width: 100%; max-width: 600px; border: 1px solid var(--border);">
+    </div>
+    <div style="margin: 2rem 0;">
+      <p style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Reynolds Stress Model Comparison</p>
+      <img src="figures/two_phase/Nu_RSM_SP.png" alt="Nusselt number for Reynolds Stress Model" style="width: 100%; max-width: 600px; border: 1px solid var(--border);">
+    </div>
+  </div>
+
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Two Phase Jet Impingement Results</div>
+    <p class="detail-text">
+      Two-phase mist jet impingement was simulated using the k-ω SST turbulence model coupled with the Mixture model for species transport. Air served as the primary phase, with water droplets as the secondary phase. Initial results indicated that the addition of mist enhances heat transfer, particularly at higher wall temperatures.
+    </p>
+    <p class="detail-text">
+      Similar to the single-phase results, numerical predictions aligned well with experimental data in the stagnation region but diverged significantly in the complex wall jet region. This discrepancy highlights the Mixture Model's limitations in accurately capturing intricate turbulent structures, secondary flows, and droplet-boundary layer interactions.
+    </p>
+    <p class="detail-text">
+      Furthermore, the expected &gt;80% increase in Nusselt number from mist addition was not consistently achieved. This shortfall is largely attributed to the problematic assumption that mass loading fraction (Ml) directly translates to volume fraction (VF) without accounting for droplet size distributions and density differences. Relying solely on Ml is insufficient for characterizing two-phase heat transfer, underscoring the need for more nuanced modeling approaches.
+    </p>
+    <div style="margin: 2rem 0;">
+      <p style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Two-Phase Mist Jet vs Single-Phase Jet</p>
+      <img src="figures/two_phase/2P_3.png" alt="Nusselt number for Two-phase mist jet vs single-phase jet" style="width: 100%; max-width: 600px; border: 1px solid var(--border);">
+    </div>
   </div>
 
   <div class="detail-nav reveal">

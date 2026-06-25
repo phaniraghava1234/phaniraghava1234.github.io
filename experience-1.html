@@ -224,34 +224,34 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
   <!-- HEADER -->
   <div class="detail-hero reveal">
     <div>
-      <p class="detail-kicker">01 · Research · Jan 2024 — Present</p>
-      <h1 class="detail-title">Research Engineer Intern</h1>
-      <div class="detail-company">Company Name</div>
+      <p class="detail-kicker">01 · Space Mission Software Developer · Aug 2025 — Present</p>
+      <h1 class="detail-title">Space Mission Software Developer and CFD Engineer</h1>
+      <div class="detail-company">e.NOVA Aerospace</div>
       <div class="detail-tags">
-        <span class="tag">C++20</span>
-        <span class="tag">CUDA</span>
-        <span class="tag">PyTorch</span>
-        <span class="tag">CMake</span>
-        <span class="tag">Nsight</span>
-        <span class="tag">libtorch</span>
+        <span class="tag">Python</span>
+        <span class="tag">Orekit</span>
+        <span class="tag">JPype</span>
+        <span class="tag">Plotly</span>
+        <span class="tag">Orbital Dynamics</span>
+        <span class="tag">Pandas</span>
       </div>
     </div>
     <div class="detail-meta-grid">
       <div class="detail-meta-item">
         <div class="detail-meta-label">Duration</div>
-        <div class="detail-meta-value">Jan 2024 — Present</div>
+        <div class="detail-meta-value">Aug 2025 — Present</div>
       </div>
       <div class="detail-meta-item">
         <div class="detail-meta-label">Location</div>
-        <div class="detail-meta-value">City, Country</div>
+        <div class="detail-meta-value">Toulouse, France</div>
       </div>
       <div class="detail-meta-item">
         <div class="detail-meta-label">Type</div>
-        <div class="detail-meta-value">Internship</div>
+        <div class="detail-meta-value">Full-Time</div>
       </div>
       <div class="detail-meta-item">
-        <div class="detail-meta-label">Team Size</div>
-        <div class="detail-meta-value">4 Engineers</div>
+        <div class="detail-meta-label">Tooling</div>
+        <div class="detail-meta-value">Python, Orekit, Jupyter</div>
       </div>
     </div>
   </div>
@@ -260,53 +260,164 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
   <div class="detail-section reveal">
     <div class="detail-section-title">// Overview</div>
     <p class="detail-text">
-      Describe this role in 2–3 sentences. What was the company working on? What was your function within the team? What domain did you operate in? Keep it high-level here — details go in the sections below.
+      Developed MAGNUS Orbito, a Python and Orekit port and extension of a legacy Excel workbook for early-phase space mission analysis. This tool supports single-satellite workflows, parametric Walker constellations, and TLE-based workflows via interactive Jupyter notebooks. By integrating the Orekit space-dynamics library using JPype1, I enabled high-fidelity orbit propagation, global coverage mapping, and sensor footprint geometry, replacing static spreadsheets with robust Python analytics and interactive Plotly maps.
     </p>
     <div class="detail-highlight">
-      "Key impact statement or quote that summarises your contribution — e.g. 'Reduced simulation turnaround time from 8 hours to under 4 hours for the aerodynamics team's weekly cycle.'"
+      "Built a unified Python pipeline for high-fidelity Eckstein-Hechler propagation, complex visibility calculations, and global grid coverage using Orekit — turning a manual spreadsheet workflow into a validated, interactive software toolkit."
     </div>
   </div>
 
   <!-- KEY METRICS -->
   <div class="detail-section reveal">
-    <div class="detail-section-title">// Impact</div>
-    <div class="detail-metrics">
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">30%</div>
-        <div class="detail-metric-label">Compute reduction</div>
-      </div>
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">18%</div>
-        <div class="detail-metric-label">Allocation overhead saved</div>
-      </div>
-      <div class="detail-metric-box">
-        <div class="detail-metric-val">4</div>
-        <div class="detail-metric-label">Engineers on team</div>
-      </div>
-    </div>
+    <div class="detail-section-title">// Capabilities & Methodology</div>
+    <ul class="detail-bullets">
+      <li>Orchestrated a 100% Python-based mission analysis layer (revisit gaps, latency, grid metrics) integrated seamlessly with Orekit's Java orbital dynamics backend.</li>
+      <li>Implemented parametric Walker Delta constellation builders and Celestrak TLE imports to facilitate complex multi-satellite orbit definitions and automatic epoch derivation.</li>
+      <li>Developed comprehensive analysis workflows for single satellites and constellations, calculating visibility windows, sensor footprints (with tilt/roll filters), and data downlink latencies.</li>
+      <li>Designed a configurable global coverage grid system capable of evaluating 12 metrics per lat/lon cell (e.g., P95 gap, max gap, coverage percentage) mapped efficiently using Plotly heatmaps.</li>
+      <li>Benchmarked computational performance against legacy Excel macros, validating RAAN drift rates, nodal periods, and repeating ground tracks.</li>
+      <li>Integrated a Pytest automation suite covering latency computations, footprint geometry, and Orekit visibility events.</li>
+    </ul>
   </div>
 
-  <!-- WHAT I DID -->
+  <!-- CODE GLIMPSE -->
   <div class="detail-section reveal">
-    <div class="detail-section-title">// What I Did</div>
-    <ul class="detail-bullets">
-      <li>Developed GPU-accelerated simulation pipeline using CUDA C++, achieving 30% reduction in compute time for aerodynamic modelling workflows.</li>
-      <li>Implemented and benchmarked a custom memory allocator in C++20, reducing allocation overhead by 18% in tight simulation loops.</li>
-      <li>Collaborated with a 4-person team on integrating PyTorch-based surrogate models into existing C++ simulation infrastructure via libtorch.</li>
-      <li>Profiled hotspots using Nsight Systems and NVTX annotations; identified and resolved a warp divergence issue reducing GPU utilisation from 62% to 91%.</li>
-      <li>Wrote technical documentation and reproducible benchmarks using Google Benchmark and GTest; all benchmarks are fully reproducible from a clean build.</li>
-      <li>Add more bullet points here as needed — describe actual tasks, tools, and outcomes.</li>
-    </ul>
+    <div class="detail-section-title">// Code Implementation Glimpse</div>
+    <p class="detail-text">
+      Sample of the orbit propagation module leveraging Orekit's Eckstein-Hechler propagator through JPype:
+    </p>
+    <div style="background: #0d1117; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border);">
+      <pre><code style="color: #c9d1d9; font-size: 0.85rem; font-family: monospace;">def propagate_orbit(
+    orbit, start, end, step_seconds: float,
+    propagator_type: Literal['keplerian', 'eckstein-hechler'] = 'eckstein-hechler',
+) -&gt; pd.DataFrame:
+    
+    eme2000 = FramesFactory.getEME2000()
+    itrf    = FramesFactory.getITRF(IERSConventions.IERS_2010, True)
+    earth   = OneAxisEllipsoid(
+                  Constants.WGS84_EARTH_EQUATORIAL_RADIUS,
+                  Constants.WGS84_EARTH_FLATTENING, itrf)
+
+    propagator = _make_propagator(orbit, propagator_type)
+
+    rows = []
+    t = start_abs
+    while t.compareTo(end_abs) &lt;= 0:
+        state = propagator.propagate(t)
+        pv  = state.getPVCoordinates(eme2000)
+        pos = pv.getPosition()
+        vel = pv.getVelocity()
+        gp  = earth.transform(pos, eme2000, t)
+
+        rows.append({
+            'epoch'  : to_datetime(t),
+            'x'      : pos.getX(),  'y'  : pos.getY(),  'z'  : pos.getZ(),
+            'lat_deg': math.degrees(gp.getLatitude()),
+            'lon_deg': math.degrees(gp.getLongitude()),
+            'alt_km' : gp.getAltitude() / 1e3,
+        })
+        t = t.shiftedBy(float(step_seconds))
+
+    return pd.DataFrame(rows).set_index('epoch')</code></pre>
+    </div>
+
+    <p class="detail-text">
+      Sample of the global grid coverage metric calculation algorithm for constellation analysis:
+    </p>
+    <div style="background: #0d1117; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border);">
+      <pre><code style="color: #c9d1d9; font-size: 0.85rem; font-family: monospace;">def compute_grid_metrics(prop_dict, grid_points, start, end, min_el_deg=5.0):
+    span_s = (end - start).total_seconds()
+    rows   = []
+
+    for pt in grid_points:
+        pt.min_elevation_deg = min_el_deg
+        frames = []
+        for df in prop_dict.values():
+            w = compute_access_windows(df, [pt])
+            if not w.empty: frames.append(w)
+
+        if not frames:
+            rows.append(_empty_row(pt.lat_deg, pt.lon_deg))
+            continue
+
+        combined = (pd.concat(frames, ignore_index=True)
+                      .sort_values('start').reset_index(drop=True))
+        n = len(combined)
+
+        merged_s = _merge_duration(combined['start'].tolist(), combined['end'].tolist())
+        cov_pct  = 100.0 * merged_s / span_s if span_s &gt; 0 else 0.0
+
+        gaps = [(combined.loc[i, 'start'] - combined.loc[i-1, 'end']).total_seconds()
+                for i in range(1, n)
+                if (combined.loc[i, 'start'] - combined.loc[i-1, 'end']).total_seconds() &gt; 0]
+
+        rows.append({
+            'lat_deg':       pt.lat_deg,
+            'lon_deg':       pt.lon_deg,
+            'n_contacts':    n,
+            'coverage_pct':  cov_pct,
+            'mean_gap_s':    float(np.mean(gaps))           if gaps else float('nan'),
+            'P95_gap_s':     float(np.percentile(gaps, 95)) if gaps else float('nan'),
+            'max_gap_s':     float(np.max(gaps))            if gaps else float('nan'),
+        })
+
+    return pd.DataFrame(rows)</code></pre>
+    </div>
+
+    <p class="detail-text">
+      Sample of the mission analysis logic calculating data downlink latencies and revisit gap CDFs:
+    </p>
+    <div style="background: #0d1117; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border);">
+      <pre><code style="color: #c9d1d9; font-size: 0.85rem; font-family: monospace;">def compute_data_latency(obs_windows, gsn_windows):
+    out_cols = ['satellite', 'obs_target', 'obs_start', 'obs_end',
+                'gsn_station', 'gsn_contact_start', 'latency_s']
+    if obs_windows.empty or gsn_windows.empty: return pd.DataFrame(columns=out_cols)
+
+    rows = []
+    for _, obs in obs_windows.iterrows():
+        sat     = obs['satellite']
+        obs_end = obs['end']
+        cands   = gsn_windows[
+            (gsn_windows['satellite'] == sat) &amp;
+            (gsn_windows['start']    &gt;= obs_end)
+        ]
+        if cands.empty:
+            rows.append({'satellite': sat, 'obs_target': obs['target'],
+                         'obs_start': obs['start'], 'obs_end': obs_end,
+                         'gsn_station': None, 'gsn_contact_start': pd.NaT,
+                         'latency_s': float('nan')})
+        else:
+            nxt = cands.loc[cands['start'].idxmin()]
+            rows.append({'satellite': sat, 'obs_target': obs['target'],
+                         'obs_start': obs['start'], 'obs_end': obs_end,
+                         'gsn_station': nxt['target'],
+                         'gsn_contact_start': nxt['start'],
+                         'latency_s': (nxt['start'] - obs_end).total_seconds()})
+    return pd.DataFrame(rows, columns=out_cols)
+
+def compute_revisit_cdf(windows, target=None):
+    df = windows.copy()
+    if target is not None: df = df[df['target'] == target]
+    df = df.sort_values('start').reset_index(drop=True)
+    if len(df) &lt; 2: return np.array([]), np.array([])
+
+    gaps = [(df.loc[i, 'start'] - df.loc[i-1, 'end']).total_seconds()
+            for i in range(1, len(df))
+            if (df.loc[i, 'start'] - df.loc[i-1, 'end']).total_seconds() &gt; 0]
+    if not gaps: return np.array([]), np.array([])
+    gaps_s = np.sort(gaps)
+    return gaps_s, np.arange(1, len(gaps_s)+1) / len(gaps_s)</code></pre>
+    </div>
   </div>
 
   <!-- WHAT I LEARNED -->
   <div class="detail-section reveal">
     <div class="detail-section-title">// What I Learned</div>
     <p class="detail-text">
-      Replace this with 2–3 sentences on what you learned. This is where you show self-awareness and growth — what skills did you develop, what gaps did you discover, what would you do differently?
+      Integrating a massive Java dynamics library (Orekit) directly into a fast, interactive Python/Jupyter pipeline presented unique challenges in JVM interoperability (via JPype1) and performance optimisation. I learned how to separate heavy orbital mechanics calculations from the purely mathematical mission analysis logic in Python (like data latency and coverage grids) to keep the interactive experience highly responsive.
     </p>
     <p class="detail-text">
-      For example: working at this level of performance sensitivity forced me to think carefully about memory layout and cache behaviour in ways that purely algorithmic thinking doesn't demand.
+      Building robust array-based evaluation methods for constellation visibility taught me to structure large datasets efficiently with Pandas, keeping computational overhead strictly bounded while maintaining flexibility for multi-target scaling.
     </p>
   </div>
 

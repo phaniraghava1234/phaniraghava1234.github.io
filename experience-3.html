@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7B2T9XFET9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-7B2T9XFET9');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Engineering Intern — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap"
+    rel="stylesheet">
+  <!-- MathJax script for LaTeX equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* === SHARED === */
+    /* ============================================================
+   SHARED STYLES — portfolio
+   ============================================================ */
+    :root {
+      --bg: #04060f;
+      --bg2: #060a18;
+      --panel: rgba(8, 14, 32, 0.85);
+      --amber: #ff8c00;
+      --amber-dim: rgba(255, 140, 0, 0.15);
+      --amber-glow: rgba(255, 140, 0, 0.4);
+      --cyan: #00d4ff;
+      --cyan-dim: rgba(0, 212, 255, 0.08);
+      --text: #c8d4e8;
+      --text-dim: #4a5a7a;
+      --white: #eef2ff;
+      --grid: rgba(255, 140, 0, 0.04);
+      --border: rgba(255, 140, 0, 0.12);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--amber);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
+      mix-blend-mode: screen;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--amber);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.15s, width 0.2s, height 0.2s, opacity 0.2s;
+      opacity: 0.5;
+      transform: translate(-12px, -12px);
+    }
+
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.4;
+    }
+
+    canvas#flow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    section {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(4, 6, 15, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--amber);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-links a.active {
+      color: var(--amber);
+    }
+
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: #00ff88;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+      }
+
+      50% {
+        opacity: 0.7;
+        box-shadow: 0 0 0 4px rgba(0, 255, 136, 0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slide {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* SECTION LABELS + TITLES */
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::before {
+      content: '[ ';
+    }
+
+    .section-label::after {
+      content: ' ]';
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    /* TAGS */
+    .tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 3rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: var(--amber);
+      color: var(--bg);
+      padding: 0.75rem 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #ffaa33;
+      box-shadow: 0 0 30px var(--amber-glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--amber);
+      padding: 0.75rem 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--amber);
+      cursor: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: var(--amber-dim);
+      box-shadow: 0 0 20px var(--amber-glow);
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      background: rgba(4, 6, 15, 0.6);
+    }
+
+    .footer-txt {
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-coords {
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .contact-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-title .highlight {
+      color: var(--amber);
+    }
+
+    .contact-sub {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+      margin-bottom: 3rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--amber);
+      border-color: var(--amber);
+      background: var(--amber-dim);
+    }
+
+    /* PAGE HEADER (for inner pages) */
+    .page-header {
+      padding: 10rem 3rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+
+    .page-back:hover {
+      color: var(--amber);
+    }
+
+    .page-back::before {
+      content: '←';
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-status {
+        display: none;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #contact {
+        padding: 5rem 1.5rem;
+      }
+
+      .page-header {
+        padding: 8rem 1.5rem 3rem;
+      }
+    }
+  </style>
+
+  <style>
+    .detail-page {
+      padding: 10rem 3rem 6rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .detail-hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 3rem;
+      margin-bottom: 5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-kicker {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .detail-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+
+    .detail-company {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    .detail-meta-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-width: 200px;
+    }
+
+    .detail-meta-item {
+      border-left: 2px solid var(--border);
+      padding-left: 1rem;
+    }
+
+    .detail-meta-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-meta-value {
+      font-size: 0.7rem;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .detail-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .detail-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-text {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .detail-bullets {
+      list-style: none;
+    }
+
+    .detail-bullets li {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text);
+      padding-left: 1.8rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .detail-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      opacity: 0.8;
+    }
+
+    .detail-highlight {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .detail-metrics {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .detail-metric-box {
+      flex: 1;
+      min-width: 120px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      background: var(--bg2);
+      text-align: center;
+    }
+
+    .detail-metric-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+
+    .detail-metric-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .detail-nav {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .detail-nav a {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .detail-nav a:hover {
+      color: var(--amber);
+    }
+
+    .detail-nav .prev::before {
+      content: '← ';
+    }
+
+    .detail-nav .next::after {
+      content: ' →';
+    }
+
+    @media (max-width: 768px) {
+      .detail-page {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .detail-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-metrics {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="flow"></canvas>
+
+  <nav>
+    <a class="nav-logo" href="index.html">YourName<span>.dev</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="experience.html" class="active">Experience</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      Open for Full time and PhD roles
+    </div>
+  </nav>
+
+  <div class="detail-page">
+    <a href="experience.html" class="page-back">All Experience</a>
+
+    <div class="detail-hero reveal">
+      <div>
+        <p class="detail-kicker">03 · Research · Jan 2023 — Mar 2024</p>
+        <h1 class="detail-title" style="font-size: clamp(1.2rem, 3vw, 2.2rem);">Research Assistant - Panel Method for
+          Conceptual Design of Aero-Propulsive Architectures</h1>
+        <div class="detail-company">ISAE SUPAERO</div>
+        <div class="detail-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Panel Methods</span>
+          <span class="tag">0D Thermodynamics</span>
+          <span class="tag">GMSH</span>
+          <span class="tag">Viscous-Inviscid Coupling</span>
+        </div>
+      </div>
+      <div class="detail-meta-grid">
+        <div class="detail-meta-item">
+          <div class="detail-meta-label">Duration</div>
+          <div class="detail-meta-value">Jan 2023 — Mar 2024</div>
+        </div>
+        <div class="detail-meta-item">
+          <div class="detail-meta-label">Location</div>
+          <div class="detail-meta-value">Toulouse, France</div>
+        </div>
+        <div class="detail-meta-item">
+          <div class="detail-meta-label">Type</div>
+          <div class="detail-meta-value">Research</div>
+        </div>
+        <div class="detail-meta-item">
+          <div class="detail-meta-label">Tooling</div>
+          <div class="detail-meta-value">Python, GMSH</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section reveal">
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">CFD Velocity Contour</p>
+      <img src="figures/Panel_method/cfd_vel.png" alt="Velocity contour from CFD" style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Overview</div>
+      <p class="detail-text">
+        This project expands the design space for Aero-Propulsive Architectures by advancing an inviscid panel method solver. By calculating boundary layer parameters directly from inviscid flow solutions, the tool achieves viscous-inviscid coupling. The 0D thermodynamic model was also upgraded to account for Boundary Layer Ingestion (BLI), creating a more realistic conceptual design framework.
+      </p>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Objectives</div>
+      <ul class="detail-bullets">
+        <li>Couple the panel method (inviscid model) to a viscous one to be able to characterize the boundary layer
+          developing on the physical surfaces.</li>
+        <li>Use the boundary layer parameters obtained at the control point located at the inlet of the propulsor to
+          improve the 0D thermodynamic model (allowing to benefit from the BLI).</li>
+      </ul>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Methodology & Capabilities</div>
+      <ul class="detail-bullets">
+        <li>Developed a python code that characterizes the flow (pressure distribution) using the panel method theory
+          around the aero propulsive geometry. The propulsor is composed of an inlet, a fan, a duct and a nozzle.</li>
+        <li>A 0D thermodynamic model computes the inlet and outlet velocities of the propulsor.</li>
+        <li>The jet is incorporated into the aero propulsive architecture.</li>
+        <li>Geometry is divided into 6 sections paneled using GMSH.</li>
+        <li>Modeled uniform flow, source/sink flow, and vortex flow distributions.</li>
+        <li>Imposed boundary conditions like zero normal velocity and Kutta conditions.</li>
+        <li>Iterated jet shape until thrust balances vertical pressure forces.</li>
+        <li>Upgraded the tool to model different kinds of geometries, optimizing convergence using gradient descent.
+        </li>
+        <li>Viscous-inviscid coupling: Evaluated laminar and turbulent boundary layer parameters (displacement
+          thickness, momentum thickness, skin friction). Solved boundary layer equations.</li>
+        <li>Used a boundary layer substitution model to replace the boundary layer profile with an averaged stream,
+          splitting incoming flow into a boundary layer stream and free flow stream using parallel compressor method
+          (PCM).</li>
+      </ul>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Mathematical Foundations</div>
+      <p class="detail-text">
+        A glimpse of the boundary layer equations utilized to model laminar-turbulent transition and evaluate the
+        separation:
+      </p>
+      <div class="detail-highlight"
+        style="overflow-x: auto; background: transparent; border: none; text-align: center; font-size: 1.2rem;">
+        $$ \frac{d \delta_2}{ds} = \frac{1}{2} C_f - (H_{12} + 2 - Ma_{iw}^2)\frac{\delta_2}{V_t}\frac{d V_t}{ds} $$
+        <br>
+        $$ \frac{d H_{12}^*}{ds} = \frac{1}{\delta_2} \frac{d H_{12}^*}{d H_1} \left\{C_E - H_1\left[0.5 C_f -
+        (H_{12}-1) \frac{\delta_2}{V_t} \frac{d V_t}{ds}\right]\right\} $$
+      </div>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Code Implementation Glimpse</div>
+      <p class="detail-text">
+        Sample of the velocity segment calculations determining local tangent distributions across airfoils:
+      </p>
+      <div
+        style="background: #0d1117; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border);">
+        <pre><code style="color: #c9d1d9; font-size: 0.85rem; font-family: monospace;"># tangential velocities on the base airfoil
+master_list = panel_list[n_outlet + n_jet1 : n_outlet + n_jet1 + n_foil1]
+
+At_matrix_base = tvvp_ho1(master_list, panel_list, panel_count) + \
+                 tvsp_ho1(master_list, panel_list, 1, panel_count) + \
+                 tvsp_ho1(master_list, panel_list, 2, panel_count)
+
+Bt_matrix_base = V_inf * np.sin([l['beta'] for l in master_list]).reshape(len(master_list), 1)
+tan_vel_base = Bt_matrix_base - (1 / (2 * np.pi)) * np.matmul(At_matrix_base, strength_array)
+
+cp_base = 1 - np.square(tan_vel_base / V_inf)
+pressure_base = cp_base * (0.5 * rho_inf * V_inf**2) + p_inf
+</code></pre>
+      </div>
+
+      <p class="detail-text">
+        Sample demonstrating the initial geometry layout and solver for finding the jet mean line between control
+        points:
+      </p>
+      <div
+        style="background: #0d1117; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border);">
+        <pre><code style="color: #c9d1d9; font-size: 0.85rem; font-family: monospace;">def jet_segment(x_array, y_array, TE_x, TE_y, jet_length, jet_dop, jet_width, aoa, jet_theta, jet_assymptote_angle):
+    # Finding the solution of the jet mean line based on initial estimated penetration
+    guess_coef = np.matmul(np.linalg.inv(np.matrix([
+        [TE_x**3, TE_x**2, TE_x, 1], 
+        [(TE_x + jet_length)**3, (TE_x + jet_length)**2, (TE_x + jet_length), 1], 
+        [3 * TE_x**2, 2 * TE_x, 1, 0], 
+        [3 * (TE_x + jet_length)**2, 2 * (TE_x + jet_length), 1, 0]
+    ])), np.matrix([[TE_y], [TE_y - jet_dop], [-math.tan(jet_theta)], [math.tan(aoa)]]))
+    
+    tck_jmean = interp.splrep(np.linspace(TE_x, TE_x + jet_length, 200), 
+                              np.transpose(guess_coef[0] * (np.linspace(TE_x, TE_x + jet_length, 200))**3 + 
+                                           guess_coef[1] * (np.linspace(TE_x, TE_x + jet_length, 200))**2 + 
+                                           guess_coef[2] * (np.linspace(TE_x, TE_x + jet_length, 200)) + 
+                                           guess_coef[3]), k = 2)
+    
+    # ... calculates geometric intrados and extrados distributions ...
+    return intrados_final, extrados_final, tck_jmean
+</code></pre>
+      </div>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Architecture & Algorithms</div>
+
+      <p class="detail-text" style="margin-top: 1.5rem; font-weight: bold; color: var(--amber);">Blown Wing Configuration (Upper and Lower
+        Nacelle)</p>
+      <img src="figures/Panel_method/BLown.png" alt="Blown wing configuration"
+        style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">Algorithm of Inviscid
+        Potential Flow for Aero-Propulsive Architecture Tool</p>
+      <img src="figures/Panel_method/Algo4.jpg" alt="Algorithm of Inviscid potential flow"
+        style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">Viscous - Inviscid Loop</p>
+      <img src="figures/Panel_method/loop%201.png" alt="Viscous-inviscid loop"
+        style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Propulsor's 0D Model Improvement</div>
+      <p class="detail-text">
+        The previous 0D thermodynamic model used in the algorithm for the computation of the propulsor outlet velocity was upgraded to take into account the non-uniform inlet flow velocity based on the methodology described in relevant literature.
+      </p>
+      <p class="detail-text">
+        A boundary layer substitution model allows the replacement of the boundary layer profile by an averaged stream of constant velocity. These are computed from the boundary layer parameters (displacement and momentum thickness) of the control point located at the inlet of the propulsor (the last control point of the base upper surface). Then the distorted and undistorted areas are computed.
+      </p>
+
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">Front View of Inflow Situation</p>
+      <img src="figures/Panel_method/P1.png" alt="Front view of inflow situation" style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+
+      <p class="detail-text">
+        A low-fidelity parallel compressor method (PCM) is used to model the propulsor. The incoming flow is divided into two streams, a 'boundary layer' stream and a 'free flow' stream. These streams do not interact. The control volume of the flow through the propulsor is shown below.
+      </p>
+
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">Control Volume of Flow Through Propulsor with BLI</p>
+      <img src="figures/Panel_method/P2.png" alt="Control volume of flow through propulsor with BLI" style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+
+      <p class="detail-text">
+        The boundary layer is assumed to be adiabatic; thus the total temperature at the inlet is the same for both streams. Another assumption is that there is no boundary layer developing on the upper surface of the duct. With the fan power and isentropic efficiency as inputs, the necessary thermodynamic computations are carried out for each station (Station 0, 1, 2, and 9) without requiring extensive high-fidelity CFD reruns.
+      </p>
+    </div>
+
+    <div class="detail-section reveal">
+      <div class="detail-section-title">// Pseudo-Validation with CFD</div>
+      <p class="detail-text">
+        To validate the boundary layer equations and the viscous-inviscid coupling, we performed a pseudo-validation against high-fidelity CFD simulations (Star-CCM+). The segregated flow solver utilized a constant density k-&omega; SST turbulence model alongside a &gamma;-Re<sub>&theta;</sub> transition model. The validation was conducted on a NACA0012 airfoil at a Reynolds number of 2.5 million (free-stream velocity of 38 m/s, 4&deg; angle of attack).
+      </p>
+      <p class="detail-text">
+        While the attached flow physics aligned well, the semi-inverse method for separated flow was excluded from the calculation loop due to implementation complexities in the current architecture. For blown wing configurations, discrepancies were observed, which likely stem from changes in area induced by the propulsor&mdash;an effect not fully captured outside the boundary layer in the 2D panel method.
+      </p>
+
+      <p class="detail-text" style="font-weight: bold; color: var(--amber);">Coefficient of Pressure (C<sub>p</sub>) for NACA0012 at Re = 2.5M</p>
+      <img src="figures/Panel_method/Cp_naca12.png" alt="Coefficient of pressure for NACA12" style="max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2rem;">
+
+
+    </div>
+
+    <div class="detail-nav reveal">
+      <a href="experience-1.html" class="prev">Prev: Research Intern</a>
+      <a href="experience.html" class="next">Back to Experience</a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-txt">© 2026 Your Name</span>
+    <span class="footer-coords">SYS.STATUS: OPEN_FOR_HIRE // v2.0.0</span>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor'); const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx - 4 + 'px'; cursor.style.top = my - 4 + 'px'; });
+    function animateRing() { rx += (mx - rx - 16) * 0.15; ry += (my - ry - 16) * 0.15; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+    animateRing();
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '48px'; ring.style.height = '48px'; ring.style.opacity = '0.8'; cursor.style.transform = 'scale(0.5)'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '32px'; ring.style.height = '32px'; ring.style.opacity = '0.5'; cursor.style.transform = 'scale(1)'; });
+    });
+    const canvas = document.getElementById('flow'); const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize);
+    const particles = [];
+    function velocity(x, y) { const nx = (x / canvas.width) * 4 - 2; const ny = (y / canvas.height) * 3 - 1.5; const r2 = nx * nx + ny * ny; const eps = 0.3; let vx = 1 - (ny * ny - nx * nx) / Math.pow(r2 + eps, 2); let vy = -2 * nx * ny / Math.pow(r2 + eps, 2); vx += Math.sin(ny * 2) * 0.1; const mag = Math.sqrt(vx * vx + vy * vy); return { vx: vx / (mag + 0.1), vy: vy / (mag + 0.1) }; }
+    for (let i = 0; i < 180; i++)particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, age: Math.random() * 200, maxAge: 100 + Math.random() * 150, speed: 0.5 + Math.random() * 1.2, size: 0.5 + Math.random() * 1.5 });
+    function resetParticle(p) { p.x = Math.random() * canvas.width; p.y = Math.random() * canvas.height; p.age = 0; p.maxAge = 100 + Math.random() * 150; }
+    function drawFlow() { ctx.fillStyle = 'rgba(4,6,15,0.06)'; ctx.fillRect(0, 0, canvas.width, canvas.height); for (const p of particles) { const { vx, vy } = velocity(p.x, p.y); const lr = p.age / p.maxAge; const alpha = lr < 0.1 ? lr * 10 : lr > 0.8 ? (1 - lr) * 5 : 1; const t = p.x / canvas.width; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${Math.round(255 * (1 - t * 0.5))},${Math.round(140 + t * 72)},${Math.round(t * 255)},${alpha * 0.6})`; ctx.fill(); p.x += vx * p.speed; p.y += vy * p.speed; p.age++; if (p.age > p.maxAge || p.x < -10 || p.x > canvas.width + 10 || p.y < -10 || p.y > canvas.height + 10) resetParticle(p); } requestAnimationFrame(drawFlow); }
+    drawFlow();
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
