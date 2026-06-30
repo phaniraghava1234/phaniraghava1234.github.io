@@ -228,38 +228,35 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
       <div class="proj-num-line"></div>
     </div>
     <div class="proj-body">
-      <p class="proj-type">Aerospace · HPC · CUDA</p>
-      <h2 class="proj-title">2D Navier-Stokes CFD Solver</h2>
+      <p class="proj-type">CFD · LBM · Python</p>
+      <h2 class="proj-title">LBM Flow Past a Cylinder — D2Q9 BGK/TRT Solver</h2>
       <p class="proj-desc">
-        GPU-accelerated incompressible flow solver for lid-driven cavity and airfoil configurations.
-        Finite Difference Method on structured grids, ported to CUDA for 47× speedup over serial CPU.
-        Visualised with Paraview streamlines. Supports Re up to 10,000.
+        A 2D Lattice Boltzmann Method solver for incompressible viscous flow past a circular cylinder, implemented in Python using NumPy. Validated against the Schäfer & Turek (1996) benchmark cases at Re = 20 (steady) and Re = 100 (unsteady vortex shedding).
       </p>
       <div class="proj-metrics">
         <div class="proj-metric">
-          <div class="proj-metric-val">47×</div>
-          <div class="proj-metric-label">GPU speedup</div>
+          <div class="proj-metric-val">0.3%</div>
+          <div class="proj-metric-label">Strouhal Number Error</div>
         </div>
         <div class="proj-metric">
-          <div class="proj-metric-val">Re 1000</div>
-          <div class="proj-metric-label">Reynolds number</div>
+          <div class="proj-metric-val">0.7%</div>
+          <div class="proj-metric-label">Pressure Drop Error</div>
         </div>
         <div class="proj-metric">
-          <div class="proj-metric-val">2M</div>
-          <div class="proj-metric-label">Grid cells</div>
+          <div class="proj-metric-val">Re 20 & 100</div>
+          <div class="proj-metric-label">Validated Cases</div>
         </div>
       </div>
       <div class="proj-footer">
         <div class="proj-tags-row">
-          <span class="tag">C++17</span>
-          <span class="tag">CUDA 12</span>
-          <span class="tag">CMake</span>
-          <span class="tag">Paraview</span>
-          <span class="tag">FDM</span>
+          <span class="tag">Python</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">LBM</span>
+          <span class="tag">CFD</span>
         </div>
         <div class="proj-links">
           <a href="project-1.html" class="proj-detail-link">Details</a>
-          <a href="https://github.com/yourusername/cfd-solver" class="proj-github-link" target="_blank">GitHub</a>
+          <a href="https://github.com/phaniraghava1234/LBM_cylinder" class="proj-github-link" target="_blank">GitHub</a>
         </div>
       </div>
     </div>

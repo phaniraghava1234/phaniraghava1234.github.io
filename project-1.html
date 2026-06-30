@@ -180,45 +180,90 @@ footer { position: relative; z-index: 10; display: flex; justify-content: space-
   <a href="projects.html" class="page-back">All Projects</a>
   <div class="detail-hero reveal">
     <div>
-      <p class="detail-kicker">01 · Aerospace · HPC · CUDA</p>
-      <h1 class="detail-title">High-Order Discontinuous Galerkin Solver for 1D Compressible Flow Equations C++/Python</h1>
-      <div class="detail-company">Personal Project · 2024</div>
+      <p class="detail-kicker">01 · CFD · LBM · Python</p>
+      <h1 class="detail-title">LBM Flow Past a Cylinder — D2Q9 BGK/TRT Solver</h1>
+      <div class="detail-company">Personal Project</div>
       <div class="detail-tags">
-        <span class="tag">C++17</span><span class="tag">CUDA 12</span><span class="tag">CMake</span><span class="tag">Paraview</span><span class="tag">FDM</span>
+        <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">LBM</span><span class="tag">CFD</span>
       </div>
     </div>
     <div class="detail-meta-grid">
-      <div class="detail-meta-item"><div class="detail-meta-label">Type</div><div class="detail-meta-value">Simulation / HPC</div></div>
-      <div class="detail-meta-item"><div class="detail-meta-label">Language</div><div class="detail-meta-value">C++17 + CUDA</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Type</div><div class="detail-meta-value">Simulation / Research</div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">Language</div><div class="detail-meta-value">Python (NumPy)</div></div>
       <div class="detail-meta-item"><div class="detail-meta-label">Status</div><div class="detail-meta-value">Complete</div></div>
-      <div class="detail-meta-item"><div class="detail-meta-label">GitHub</div><div class="detail-meta-value"><a href="https://github.com/yourusername/cfd-solver" style="color:var(--amber);text-decoration:none" target="_blank">View Repo →</a></div></div>
+      <div class="detail-meta-item"><div class="detail-meta-label">GitHub</div><div class="detail-meta-value"><a href="https://github.com/phaniraghava1234/LBM_cylinder" style="color:var(--amber);text-decoration:none" target="_blank">View Repo →</a></div></div>
     </div>
   </div>
+
   <div class="detail-section reveal">
     <div class="detail-section-title">// Overview</div>
-    <p class="detail-text">Replace this with 2–3 sentences describing the project's motivation and what it does. What problem does it solve? Who would use it? What makes it technically interesting?</p>
-    <div class="img-placeholder">[ Add simulation screenshot or flow visualisation here ]</div>
-  </div>
-  <div class="detail-section reveal">
-    <div class="detail-section-title">// Results</div>
-    <div class="detail-metrics">
-      <div class="detail-metric-box"><div class="detail-metric-val">47×</div><div class="detail-metric-label">GPU speedup</div></div>
-      <div class="detail-metric-box"><div class="detail-metric-val">Re 1000</div><div class="detail-metric-label">Reynolds number</div></div>
-      <div class="detail-metric-box"><div class="detail-metric-val">2M</div><div class="detail-metric-label">Grid cells</div></div>
+    <p class="detail-text">A 2D Lattice Boltzmann Method solver for incompressible viscous flow past a circular cylinder, implemented in Python using NumPy. The project is rigorously validated against the Schäfer & Turek (1996) benchmark cases at Re = 20 (steady) and Re = 100 (unsteady vortex shedding).</p>
+    <div style="margin: 2rem 0; padding: 10px; background: var(--bg2); border: 1px solid var(--border);">
+      <img src="figures/geometry_block3.png" alt="Domain Geometry" style="width: 100%; height: auto; display: block;">
+      <p style="text-align: center; font-size: 0.6rem; color: var(--text-dim); margin-top: 10px; letter-spacing: 0.1em; text-transform: uppercase;">Domain Geometry (Schäfer & Turek benchmark)</p>
     </div>
   </div>
+
   <div class="detail-section reveal">
-    <div class="detail-section-title">// Technical Details</div>
-    <ul class="detail-bullets">
-      <li>Implemented the pressure-projection method for incompressible Navier-Stokes on a 2D staggered grid.</li>
-      <li>Ported the pressure-Poisson solver to CUDA using shared memory tiling, achieving 47× speedup over serial CPU.</li>
-      <li>Validated results against the Ghia et al. (1982) lid-driven cavity benchmark at Re=100, 400, 1000.</li>
-      <li>Replace with your actual technical details — numerical scheme, discretisation, boundary conditions, validation.</li>
-    </ul>
+    <div class="detail-section-title">// Key Metrics</div>
+    <div class="detail-metrics">
+      <div class="detail-metric-box"><div class="detail-metric-val">0.3%</div><div class="detail-metric-label">Strouhal Number Error</div></div>
+      <div class="detail-metric-box"><div class="detail-metric-val">0.7%</div><div class="detail-metric-label">Pressure Drop Error</div></div>
+      <div class="detail-metric-box"><div class="detail-metric-val">Re 20 & 100</div><div class="detail-metric-label">Validated Cases</div></div>
+    </div>
   </div>
+
   <div class="detail-section reveal">
-    <div class="detail-section-title">// Challenges & Learnings</div>
-    <p class="detail-text">Describe the hardest technical challenge you faced and how you solved it. This is the section that distinguishes your write-up from a README.</p>
+    <div class="detail-section-title">// Results & Visualizations</div>
+    <p class="detail-text">At Re = 20, the flow is steady and symmetric with a small recirculation bubble directly behind the cylinder. Convergence is reached down to machine precision. At Re = 100, the wake becomes unsteady, forming a classic Kármán vortex street with alternating vortices shed from the cylinder.</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+        <div style="background: var(--bg2); border: 1px solid var(--border); padding: 10px;">
+            <img src="figures/vel_2D1.png" alt="Steady Flow Velocity" style="width: 100%; height: auto; display: block;">
+            <p style="text-align: center; font-size: 0.6rem; color: var(--text-dim); margin-top: 10px; text-transform: uppercase;">Re=20 Steady Velocity</p>
+        </div>
+        <div style="background: var(--bg2); border: 1px solid var(--border); padding: 10px;">
+            <img src="figures/vort_2D1.png" alt="Steady Flow Vorticity" style="width: 100%; height: auto; display: block;">
+            <p style="text-align: center; font-size: 0.6rem; color: var(--text-dim); margin-top: 10px; text-transform: uppercase;">Re=20 Steady Vorticity</p>
+        </div>
+        <div style="background: var(--bg2); border: 1px solid var(--border); padding: 10px;">
+            <img src="figures/vel_2D2.png" alt="Unsteady Flow Velocity" style="width: 100%; height: auto; display: block;">
+            <p style="text-align: center; font-size: 0.6rem; color: var(--text-dim); margin-top: 10px; text-transform: uppercase;">Re=100 Unsteady Velocity</p>
+        </div>
+        <div style="background: var(--bg2); border: 1px solid var(--border); padding: 10px;">
+            <img src="figures/vort_2D2.png" alt="Unsteady Flow Vorticity" style="width: 100%; height: auto; display: block;">
+            <p style="text-align: center; font-size: 0.6rem; color: var(--text-dim); margin-top: 10px; text-transform: uppercase;">Re=100 Kármán Vortex Street</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="detail-section reveal">
+    <div class="detail-section-title">// Solver Code Glimpse</div>
+    <p class="detail-text">The solver computes the equilibrium distribution function using the standard D2Q9 lattice weights. Below is a glimpse of the highly optimized, vectorized core algorithm leveraging NumPy for massive performance gains on CPUs without requiring explicit loops over grid nodes:</p>
+    <div style="background: #0d1117; padding: 1.5rem; border: 1px solid var(--border); overflow-x: auto; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: #c9d1d9; line-height: 1.5;">
+<pre style="margin:0;"><code>def equilibrium(rho, u):
+    """
+    Compute equilibrium distribution f_i^eq for all nodes.
+    """
+    # c_i . u  for all nodes and directions
+    cu = np.einsum('id,xyd->xyi', c, u)
+
+    # |u|^2 shape: (Nx, Ny)
+    u2 = np.einsum('xyd,xyd->xy', u, u)
+
+    # Broadcast rho for multiplication
+    rho3 = rho[:, :, np.newaxis]
+
+    # Full equilibrium — [He1997 Eq.40]
+    feq = w * rho3 * (
+        1.0
+        + cu / cs2
+        + cu**2 / (2.0 * cs2**2)
+        - u2[:, :, np.newaxis] / (2.0 * cs2)
+    )
+
+    return feq</code></pre>
+    </div>
   </div>
   <div class="detail-nav reveal">
     <a href="projects.html" class="prev">Back to Projects</a>
